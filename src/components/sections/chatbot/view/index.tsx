@@ -9,6 +9,7 @@ export interface IChatBot {
   rootClassname?: string;
   ShowButtonClassName?: string;
   ChatbotRootClassName?: string;
+  GreetingMessage?: string;
   status?: "send" | "received";
   position?: "bottom-left" | "bottom-right" | "top-left" | "top-right";
 }
@@ -21,6 +22,7 @@ const ChatbotView = ({
   ShowButtonClassName,
   position = "bottom-right",
   status = "send",
+  GreetingMessage = "Do you have any questions...?",
 }: IChatBot) => {
   const [openModal, setOpenModal] = useState(false);
   const [messages, setMessages] = useState<IMessage[]>([]);
@@ -59,12 +61,8 @@ const ChatbotView = ({
       {/* chatbox */}
       {openModal ? (
         <div
-          style={{
-            position: "fixed",
-            border: "2px solid #000",
-          }}
           className={twMerge(
-            "fixed border-2 px-2 pb-0 w-[250px] h-[250px] no-scrollbars flex flex-col rounded-lg   items-center justify-center ",
+            "fixed border-2 px-2 pb-0 slide-top w-[250px] h-[250px] no-scrollbars flex flex-col rounded-lg   items-center justify-center ",
             position === "top-right"
               ? "top-4 left-4"
               : position === "top-left"
@@ -85,6 +83,13 @@ const ChatbotView = ({
             <IconClose width={32} height={32} fill="#000" />
           </div>
           <div className="h-[210px] pt-9 relative w-full overflow-y-auto overflow-x-hidden px-[12px]">
+            {messages.length === 0 ? (
+              <p className="text-[16px] tracking-in-expand  rounded-lg my-1 py-1 flex flex-wrap !text-left  flex-col  !max-w-[90%] !w-fit p px-2 border-2">
+                {GreetingMessage}
+              </p>
+            ) : (
+              ""
+            )}
             {messages.map((item) => (
               <div
                 className={twMerge(
@@ -98,9 +103,9 @@ const ChatbotView = ({
                   <div className="absolute w-[8px] h-[8px] items-center rotate-45 right-0 bg-green-400 bottom-[12px] mr-[-2px]  " />
                 ) : (
                   // Button
-                  <div className="absolute w-[8px] h-[8px] items-center rotate-45 left-0 bg-blue-400 bottom-[12px] ml-[-2px]  " />
+                  <div className="absolute w-[8px] h-[8px] items-center rotate-45 left-0  bg-blue-400 bottom-[12px] ml-[-2px]  " />
                 )}
-                <div className=" !text-wrap w-full overflow-hidden  max-h-full h-full">
+                <div className=" !text-wrap w-full overflow-hidden  max-h-full h-full ">
                   {item.message}
                 </div>
               </div>
@@ -123,7 +128,6 @@ const ChatbotView = ({
         </div>
       ) : (
         <div
-          style={{ position: "fixed", backgroundColor: "#000" }}
           className={twMerge(
             "fixed  bg-slate-600 p-2 w-[50px] h-[50px] !rounded-full flex items-center justify-center cursor-pointer",
             position === "top-right"
