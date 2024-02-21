@@ -10,6 +10,7 @@ export interface IChatBot {
   ShowButtonClassName?: string;
   ChatbotRootClassName?: string;
   status?: "send" | "received";
+  position?: "bottom-left" | "bottom-right" | "top-left" | "top-right";
 }
 interface IMessage {
   message: string;
@@ -18,6 +19,7 @@ interface IMessage {
 const ChatbotView = ({
   ChatbotRootClassName,
   ShowButtonClassName,
+  position = "bottom-right",
   status = "send",
 }: IChatBot) => {
   const [openModal, setOpenModal] = useState(false);
@@ -58,7 +60,16 @@ const ChatbotView = ({
       {openModal ? (
         <div
           className={twMerge(
-            "fixed bottom-4 right-4 border-2 px-2 pb-0 w-[250px] h-[250px] no-scrollbars flex flex-col rounded-lg   items-center justify-center ",
+            "fixed border-2 px-2 pb-0 w-[250px] h-[250px] no-scrollbars flex flex-col rounded-lg   items-center justify-center ",
+            position === "top-right"
+              ? "top-4 left-4"
+              : position === "top-left"
+              ? "top-4 right-4"
+              : position === "bottom-left"
+              ? "left-4 bottom-4"
+              : position === "bottom-right"
+              ? "bottom-4 right-4"
+              : "",
 
             ChatbotRootClassName
           )}
@@ -109,7 +120,15 @@ const ChatbotView = ({
       ) : (
         <div
           className={twMerge(
-            "fixed bottom-4 right-4 bg-slate-600 p-2 w-[50px] h-[50px] !rounded-full flex items-center justify-center cursor-pointer",
+            "fixed  bg-slate-600 p-2 w-[50px] h-[50px] !rounded-full flex items-center justify-center cursor-pointer",
+            position === "top-right"
+              ? "top-4 left-4"
+              : position === "top-left"
+              ? "top-4 right-4"
+              : position === "bottom-left"
+              ? "left-4 bottom-4"
+              : "bottom-4 right-4",
+
             ShowButtonClassName
           )}
           onClick={() => setOpenModal(true)}
