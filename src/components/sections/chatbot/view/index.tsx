@@ -59,6 +59,10 @@ const ChatbotView = ({
       {/* chatbox */}
       {openModal ? (
         <div
+          style={{
+            position: "fixed",
+            border: "2px solid #000",
+          }}
           className={twMerge(
             "fixed border-2 px-2 pb-0 w-[250px] h-[250px] no-scrollbars flex flex-col rounded-lg   items-center justify-center ",
             position === "top-right"
@@ -119,6 +123,7 @@ const ChatbotView = ({
         </div>
       ) : (
         <div
+          style={{ position: "fixed", backgroundColor: "#000" }}
           className={twMerge(
             "fixed  bg-slate-600 p-2 w-[50px] h-[50px] !rounded-full flex items-center justify-center cursor-pointer",
             position === "top-right"
