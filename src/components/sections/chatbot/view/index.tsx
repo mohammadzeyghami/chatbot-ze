@@ -46,13 +46,14 @@ const ChatbotView = ({
   };
 
   const MessageInputsubmit = () => {
-    setMessages((prev) => [
-      ...prev,
-      {
-        status: status,
-        message: currentMessage,
-      },
-    ]);
+    currentMessage != "" &&
+      setMessages((prev) => [
+        ...prev,
+        {
+          status: status,
+          message: currentMessage,
+        },
+      ]);
     setCurrentMessage("");
   };
 
@@ -62,7 +63,7 @@ const ChatbotView = ({
       {openModal ? (
         <div
           className={twMerge(
-            "fixed border-2 px-2 pb-0 slide-top w-[250px] h-[250px] no-scrollbars flex flex-col rounded-lg   items-center justify-center ",
+            "fixed border-2 shadow-lg px-2 pb-0 slide-top w-[250px] h-[250px] no-scrollbars flex flex-col rounded-lg   items-center justify-center ",
             position === "top-right"
               ? "top-4 left-4"
               : position === "top-left"
@@ -120,16 +121,16 @@ const ChatbotView = ({
             />
             <IconSend
               onClick={MessageInputsubmit}
-              width={30}
-              height={30}
-              className="absolute top-[2px] right-1 w-[16px] bg-inherit !outline-none border-none h-full  ] "
+              width={24}
+              height={24}
+              className="absolute top-[6px] right-1  bg-inherit !outline-none border-none   "
             />
           </div>
         </div>
       ) : (
         <div
           className={twMerge(
-            "fixed  bg-slate-600 p-2 w-[50px] h-[50px] !rounded-full flex items-center justify-center cursor-pointer",
+            "fixed  bg-slate-600 shadow-lg p-2 w-[50px] h-[50px] !rounded-full flex items-center justify-center cursor-pointer",
             position === "top-right"
               ? "top-4 left-4"
               : position === "top-left"
